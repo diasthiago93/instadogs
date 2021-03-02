@@ -1,8 +1,10 @@
 import { useState } from "react";
 
 const types = {
-  regex: /^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i,
-  message: "Email Invalido",
+  email: {
+    regex: /^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i,
+    message: "Email Invalido",
+  },
 };
 
 const useForm = (type) => {
@@ -11,7 +13,7 @@ const useForm = (type) => {
 
   function validate(value) {
     if (type === false) return true;
-    if (value.lenght === 0) {
+    if (value.length === 0) {
       setError("Preencha um valor.");
       return false;
     } else if (types[type] && !types[type].regex.test(value)) {
@@ -23,7 +25,7 @@ const useForm = (type) => {
     }
   }
   function onChange({ target }) {
-    validate(target.value);
+    if (error) validate(target.value);
     setValue(target.value);
   }
 

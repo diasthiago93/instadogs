@@ -5,22 +5,24 @@ import Button from "../Forms/Button";
 import useForm from "../../Hooks/useForm";
 
 const LoginForm = () => {
-  const username = useForm("email");
+  const username = useForm();
   const password = useForm();
 
   function handleSubimit(event) {
     event.preventDefault();
-    fetch("https://dogsapi.origamid.dev/json/jwt-auth/v1/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application-json",
-      },
-      body: JSON.stringify({ username, password }),
-    })
-      .then((response) => {
-        return response.JSON;
+    if (username.validade() && password.validade()) {
+      fetch("https://dogsapi.origamid.dev/json/jwt-auth/v1/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application-json",
+        },
+        body: JSON.stringify(),
       })
-      .then((json) => console.log(json));
+        .then((response) => {
+          return response.JSON;
+        })
+        .then((json) => console.log(json));
+    }
   }
 
   return (
@@ -28,7 +30,7 @@ const LoginForm = () => {
       <h1>Login</h1>
       <form onSubmit={handleSubimit}>
         <Input label="Usuário" type="text" name="username" {...username} />
-        <Input label="Password" type="password" {...password} name="password" />
+        <Input label="Password" type="password" name="password" {...password} />
         <Button>Entrar</Button>
       </form>
       <Link to="/login/criar">Cadastro</Link>
