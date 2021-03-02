@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
@@ -10,20 +10,20 @@ import { UserStorage } from "./UserContext";
 const App = () => {
   return (
     <>
-      <Router>
+      <BrowserRouter>
         <UserStorage>
           <Header />
-          <Switch>
-            <Route path="/login">
+          <Routes>
+            <Route path="/login/*">
               <Login />
             </Route>
             <Route exact path="/">
               <Home />
             </Route>
-          </Switch>
+          </Routes>
           <Footer />
         </UserStorage>
-      </Router>
+      </BrowserRouter>
     </>
   );
 };
